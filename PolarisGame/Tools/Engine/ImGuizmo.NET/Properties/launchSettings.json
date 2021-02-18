@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ImGuizmo.NET": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

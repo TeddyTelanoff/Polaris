@@ -1,0 +1,47 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\PolarisVSIX\\template\\templatepack.PolarisVSIX.proj": {}
+  },
+  "projects": {
+    "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\PolarisVSIX\\template\\templatepack.PolarisVSIX.proj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\PolarisVSIX\\template\\templatepack.PolarisVSIX.proj",
+        "projectName": "templatepack.PolarisVSIX",
+        "projectPath": "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\PolarisVSIX\\template\\templatepack.PolarisVSIX.proj",
+        "packagesPath": "C:\\Users\\mtheumann\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\PolarisVSIX\\template\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mtheumann\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard1.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard1.0": {
+            "targetAlias": "netstandard1.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netstandard1.0": {
+          "targetAlias": "netstandard1.0",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

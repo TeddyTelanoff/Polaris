@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ultz.SilkExtensions.ImGui": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "8S2NOVtC7yHILPqC8PbuPsOogIAZwqmrwdZBQ5SYK8zH5wvQEGcnmL+9QU83FPmolA2G3Qlc5x2a8K8IL5rGOw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\ImGui.NET\\ImGui.NET.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.visualbasic\\10.4.0-preview.18571.3\\microsoft.visualbasic.10.4.0-preview.18571.3.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\mtheumann\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
+    "C:\\Users\\mtheumann\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
+    "C:\\Users\\mtheumann\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.4.0\\system.runtime.compilerservices.unsafe.4.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

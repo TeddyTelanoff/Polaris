@@ -1,0 +1,45 @@
+{
+  "author": "Karrson Heumann",
+  "classifications": [],
+  "description": "Create a game with the Polaris game engine!",
+  "name": "Polaris Game",
+  "defaultName": "PolarisGame",
+  "identity": "hkarrson.PolarisGame",
+  "groupIdentity": "hkarrson.PolarisGame",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "shortName": "plgame",
+  "sourceName": "PolarisGame",
+  "guids": [],
+  "primaryOutputs": [
+    {
+      "path": "PolarisGame\\PolarisGame.csproj"
+    },
+    {
+      "path": "Polaris\\Polaris.csproj"
+    },
+    {
+      "path": "Ultz.SilkExtensions.ImGui\\Ultz.SilkExtensions.ImGui.csproj"
+    },
+    {
+      "path": "CodeGenerator\\CodeGenerator.csproj"
+    },
+    {
+      "path": "ImGui.NET\\ImGui.NET.csproj"
+    },
+    {
+      "path": "ImGuizmo.NET\\ImGuizmo.NET.csproj"
+    },
+    {
+      "path": "ImNodes.NET\\ImNodes.NET.csproj"
+    },
+    {
+      "path": "ImPlot.NET\\ImPlot.NET.csproj"
+    },
+    {
+      "path": "ImPlot.NET\\ImPlot.NET.csproj"
+    }
+  ]
+}

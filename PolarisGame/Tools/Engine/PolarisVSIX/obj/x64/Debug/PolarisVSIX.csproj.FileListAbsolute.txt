@@ -1,0 +1,9 @@
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\bin\Debug\Polaris.dll
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\bin\Debug\Polaris.pdb
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\PolarisVSIX.csprojAssemblyReference.cache
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\_EmptyResource.resources
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\PolarisVSIX.csproj.GenerateResource.cache
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\PolarisVSIX.csproj.CoreCompileInputs.cache
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\Polaris.dll
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\Polaris.pdb
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\PolarisVSIX\obj\x64\Debug\extension.vsixmanifest

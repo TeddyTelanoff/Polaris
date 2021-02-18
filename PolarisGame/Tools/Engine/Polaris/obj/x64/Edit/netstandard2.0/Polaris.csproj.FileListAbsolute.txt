@@ -1,0 +1,4 @@
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj\x64\Edit\netstandard2.0\Polaris.csprojAssemblyReference.cache
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj\x64\Edit\netstandard2.0\Polaris.AssemblyInfoInputs.cache
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj\x64\Edit\netstandard2.0\Polaris.AssemblyInfo.cs
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj\x64\Edit\netstandard2.0\Polaris.csproj.CoreCompileInputs.cache
