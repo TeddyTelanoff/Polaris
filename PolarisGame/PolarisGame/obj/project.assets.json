@@ -44,6 +44,70 @@
           "lib/netstandard2.0/CXuesong.Shims.VisualBasic.Devices.dll": {}
         }
       },
+      "ImGui.NET/1.78.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.4.0",
+          "System.Numerics.Vectors": "4.4.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/ImGui.NET.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ImGui.NET.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libcimgui.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/libcimgui.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/cimgui.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/cimgui.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "ImGui.NET.Docking/1.75.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.4.0",
+          "System.Numerics.Vectors": "4.4.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/ImGui.NET.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ImGui.NET.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libcimgui.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/libcimgui.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/cimgui.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/cimgui.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
       "Microsoft.Bcl.HashCode/1.1.0": {
         "type": "package",
         "compile": {
@@ -789,19 +853,6 @@
         },
         "runtime": {
           "lib/netstandard2.1/Silk.NET.Windowing.Common.dll": {}
-        }
-      },
-      "Silk.NET.Windowing.Desktop/1.9.0": {
-        "type": "package",
-        "dependencies": {
-          "Silk.NET.GLFW": "1.9.0",
-          "Silk.NET.Windowing.Common": "1.9.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Silk.NET.Windowing.Desktop.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Silk.NET.Windowing.Desktop.dll": {}
         }
       },
       "Silk.NET.Windowing.Glfw/2.0.0": {
@@ -1935,90 +1986,18 @@
           }
         }
       },
-      "ImGui.NET/1.78.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Microsoft.VisualBasic": "10.4.0-preview.18571.3",
-          "System.Buffers": "4.4.0",
-          "System.Numerics.Vectors": "4.4.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.4.0"
-        },
-        "compile": {
-          "bin/placeholder/ImGui.NET.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ImGui.NET.dll": {}
-        }
-      },
-      "ImGuizmo.NET/1.61.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "ImGui.NET": "1.78.0",
-          "Microsoft.VisualBasic": "10.4.0-preview.18571.3",
-          "System.Buffers": "4.4.0",
-          "System.Numerics.Vectors": "4.4.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.4.0"
-        },
-        "compile": {
-          "bin/placeholder/ImGuizmo.NET.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ImGuizmo.NET.dll": {}
-        }
-      },
-      "ImNodes.NET/0.3.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "ImGui.NET": "1.78.0",
-          "Microsoft.VisualBasic": "10.4.0-preview.18571.3",
-          "System.Buffers": "4.4.0",
-          "System.Numerics.Vectors": "4.4.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.4.0"
-        },
-        "compile": {
-          "bin/placeholder/ImNodes.NET.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ImNodes.NET.dll": {}
-        }
-      },
-      "ImPlot.NET/0.8.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "ImGui.NET": "1.78.0",
-          "Microsoft.VisualBasic": "10.4.0-preview.18571.3",
-          "System.Buffers": "4.4.0",
-          "System.Numerics.Vectors": "4.4.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.4.0"
-        },
-        "compile": {
-          "bin/placeholder/ImPlot.NET.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ImPlot.NET.dll": {}
-        }
-      },
       "Polaris/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "AssimpNet": "4.1.0",
-          "ImGui.NET": "1.78.0",
-          "ImGuizmo.NET": "1.61.0",
-          "ImNodes.NET": "0.3.0",
-          "ImPlot.NET": "0.8.0",
+          "ImGui.NET.Docking": "1.75.0",
           "Microsoft.CodeAnalysis.CSharp.Scripting": "3.8.0",
           "Silk.NET": "2.0.0",
           "Silk.NET.Input.Common": "2.0.0",
           "Silk.NET.Input.Extensions": "2.0.0",
           "Silk.NET.OpenGL": "2.0.0",
           "Silk.NET.Windowing": "2.0.0",
-          "Silk.NET.Windowing.Common": "2.0.0",
-          "Silk.NET.Windowing.Desktop": "1.9.0",
           "Silk.NET.Windowing.Glfw": "2.0.0",
           "SixLabors.ImageSharp": "1.0.2",
           "System.Collections.Immutable": "5.0.0",
@@ -2038,9 +2017,6 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "ImGui.NET": "1.78.0",
-          "ImGuizmo.NET": "1.61.0",
-          "ImNodes.NET": "0.3.0",
-          "ImPlot.NET": "0.8.0",
           "Microsoft.VisualBasic": "10.4.0-preview.18571.3",
           "Silk.NET.Input.Common": "2.0.0",
           "Silk.NET.Input.Extensions": "2.0.0",
@@ -2094,6 +2070,41 @@
         "lib/netstandard2.0/CXuesong.Shims.VisualBasic.Devices.dll",
         "lib/netstandard2.0/CXuesong.Shims.VisualBasic.Devices.pdb",
         "lib/netstandard2.0/CXuesong.Shims.VisualBasic.Devices.xml"
+      ]
+    },
+    "ImGui.NET/1.78.0": {
+      "sha512": "ArYtGX3VcVh7+K6DfO4p6lY2r+NMZ5TArfMD8TSYEmF/UcWIZC/yM1SC7L6bsjQ+9brdv2aXGTexz8z0ZvvTxw==",
+      "type": "package",
+      "path": "imgui.net/1.78.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net40/ImGui.NET.targets",
+        "imgui.net.1.78.0.nupkg.sha512",
+        "imgui.net.nuspec",
+        "lib/netstandard2.0/ImGui.NET.dll",
+        "lib/netstandard2.0/ImGui.NET.xml",
+        "runtimes/linux-x64/native/libcimgui.so",
+        "runtimes/osx-x64/native/libcimgui.dylib",
+        "runtimes/win-x64/native/cimgui.dll",
+        "runtimes/win-x86/native/cimgui.dll"
+      ]
+    },
+    "ImGui.NET.Docking/1.75.0": {
+      "sha512": "OR1NksDIaBcL1cLTx8CztG6Dvpgc7tu82JWYoYkerzWlsq4k160ZOG+YUo5OBaIkEDBGh/6AQ6Y0xF58FXo8PQ==",
+      "type": "package",
+      "path": "imgui.net.docking/1.75.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net40/ImGui.NET.targets",
+        "imgui.net.docking.1.75.0.nupkg.sha512",
+        "imgui.net.docking.nuspec",
+        "lib/netstandard2.0/ImGui.NET.dll",
+        "runtimes/linux-x64/native/libcimgui.so",
+        "runtimes/osx-x64/native/libcimgui.dylib",
+        "runtimes/win-x64/native/cimgui.dll",
+        "runtimes/win-x86/native/cimgui.dll"
       ]
     },
     "Microsoft.Bcl.HashCode/1.1.0": {
@@ -3170,19 +3181,6 @@
         "lib/netstandard2.1/Silk.NET.Windowing.Common.xml",
         "silk.net.windowing.common.2.0.0.nupkg.sha512",
         "silk.net.windowing.common.nuspec"
-      ]
-    },
-    "Silk.NET.Windowing.Desktop/1.9.0": {
-      "sha512": "2ZEpnor9SKSkD4E/9VFF/N5Eh318jpyXeWnmmOE4vZoXKNekoBAi3rse9FPBLidnl0HiA+5eyB+EJLtCgASDLQ==",
-      "type": "package",
-      "path": "silk.net.windowing.desktop/1.9.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Silk.NET.Windowing.Desktop.dll",
-        "lib/netstandard2.0/Silk.NET.Windowing.Desktop.xml",
-        "silk.net.windowing.desktop.1.9.0.nupkg.sha512",
-        "silk.net.windowing.desktop.nuspec"
       ]
     },
     "Silk.NET.Windowing.Glfw/2.0.0": {
@@ -6559,26 +6557,6 @@
         "vim.math3d.1.1.0.nupkg.sha512",
         "vim.math3d.nuspec"
       ]
-    },
-    "ImGui.NET/1.78.0": {
-      "type": "project",
-      "path": "../Tools/Engine/ImGui.NET/ImGui.NET.csproj",
-      "msbuildProject": "../Tools/Engine/ImGui.NET/ImGui.NET.csproj"
-    },
-    "ImGuizmo.NET/1.61.0": {
-      "type": "project",
-      "path": "../Tools/Engine/ImGuizmo.NET/ImGuizmo.NET.csproj",
-      "msbuildProject": "../Tools/Engine/ImGuizmo.NET/ImGuizmo.NET.csproj"
-    },
-    "ImNodes.NET/0.3.0": {
-      "type": "project",
-      "path": "../Tools/Engine/ImNodes.NET/ImNodes.NET.csproj",
-      "msbuildProject": "../Tools/Engine/ImNodes.NET/ImNodes.NET.csproj"
-    },
-    "ImPlot.NET/0.8.0": {
-      "type": "project",
-      "path": "../Tools/Engine/ImPlot.NET/ImPlot.NET.csproj",
-      "msbuildProject": "../Tools/Engine/ImPlot.NET/ImPlot.NET.csproj"
     },
     "Polaris/1.0.0": {
       "type": "project",

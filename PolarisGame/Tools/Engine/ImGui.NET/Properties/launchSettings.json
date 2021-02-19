@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ImGui.NET": {
-      "commandName": "Project",
-      "nativeDebugging": true
-    }
-  }
-}

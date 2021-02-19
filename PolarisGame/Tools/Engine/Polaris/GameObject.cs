@@ -167,7 +167,7 @@ namespace Polaris
                     Vim.MathOps.ToRadians(Rotation.Z)
                 );
                 model *= Matrix4x4.CreateTranslation(Position);
-                if (Parent != null) return model * Parent.Transform;
+                if (Parent != null) return Parent.Transform * model;
                 else return model;
             }
         }

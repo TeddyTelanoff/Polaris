@@ -37,7 +37,6 @@ namespace Polaris
         internal unsafe void OnLoad()
         {
             MainWindow.WindowState = WindowState.Maximized;
-            File.WriteAllBytes("cimgui.dll", Properties.Resources.cimgui);
             input = MainWindow.CreateInput();
 
             PushLayer(this);

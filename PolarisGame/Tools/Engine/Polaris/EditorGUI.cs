@@ -1,9 +1,4 @@
 ﻿using ImGuiNET;
-using ImGuizmoNET;
-using ImNodesNET;
-using ImPlotNET;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
 using Silk.NET.Input;
 using Silk.NET.Input.Extensions;
 using System;
@@ -18,8 +13,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.ApplicationServices;
-using Microsoft.VisualBasic.CompilerServices;
 using System.Diagnostics;
 
 namespace Polaris
@@ -111,29 +104,10 @@ namespace Polaris
                         ImgSize.Y = ImgSize.X * ViewportAspectRatio;
                     }
                     ImGui.SetCursorPos((ImGui.GetWindowSize() - ImgSize) * 0.5f);
-                    ImGuizmo.SetRect(ImGui.GetCursorPosX(), ImGui.GetCursorPosY(), ImgSize.X, ImgSize.Y);
                     ImGui.Image((IntPtr)SceneRenderer.FinalNativeTexture, ImgSize,
                         new Vector2(0, 1), new Vector2(1, 0));
-
-                    ImGuizmo.SetDrawlist();
-                    foreach (GameObject go in Scene.LoadedScene.AllNodes.Where(go => go.Data != null && go.Data.IsSelected))
-                    {
-                        Matrix4x4 model = go.Transform;
-                        fixed (Matrix4x4* view = &GL.view)
-                        {
-                            fixed (Matrix4x4* proj = &GL.proj)
-                            {
-                                Matrix4x4* my_model = &model;
-                                ImGuizmo.Manipulate(ref view->M11, ref proj->M11, OPERATION.TRANSLATE, MODE.LOCAL, ref my_model->M11);
-                            }
-                        }
-                        if (ImGuizmo.IsUsing())
-                        {
-                            go.Position = model.Translation;
-                        }
-                    }
-                    ImGui.End();
                 }
+                ImGui.End();
             }
             ImGui.PopStyleVar();
             ImGui.PopStyleColor();
@@ -332,53 +306,49 @@ namespace Polaris
             bool IsUsed = false;
 
             ImGui.PushID(text);
-            float x1 = ImGui.GetCursorPosX();
+
+            float NextCursorPosX = 0;
+
+            // X
+            NextCursorPosX = ImGui.GetCursorPosX() + text_width;
+
             ImGui.Text(text);
-            x1 += text_width;
             ImGui.SameLine();
-            ImGui.SetCursorPosX(x1);
+            ImGui.SetCursorPosX(NextCursorPosX);
+
             ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(0, -1));
             ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(1, 0, 0, 1));
             if (ImGui.Button("X")) { new_vector.X = init.X; IsUsed = true; }
             ImGui.PopStyleColor();
-            Vector2 text_size = ImGui.CalcTextSize("X", 0, true);
-            Vector2 button_size = CalcItemSize(Vector2.Zero, text_size.X +
-                style.FramePadding.X * 2.0f, text_size.Y + style.FramePadding.Y * 2.0f);
-            float width = size_x / 3.0f - button_size.X;
             ImGui.SameLine();
-            ImGui.PushItemWidth(width);
-            float X = new_vector.X;
-            if (ImGui.DragFloat("##x", ref X, speed, min.X, max.X, "%.2f"))
-            {
-                IsUsed = true;
-                new_vector.X = X;
-            }
+            ImGui.PushItemWidth(size_x / 3.0f - text_width / 3.0f + buffer / 6.0f);
+            if (ImGui.DragFloat("##x", ref new_vector.X, speed, min.X, max.X)) IsUsed = true;
             ImGui.PopItemWidth();
+
+            // Y
+            NextCursorPosX = ImGui.GetCursorPosX() + text_width;
             ImGui.SameLine();
-            ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0, 0.5f, 0, 1));
+            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(0, -1));
+            ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0, 0.7f, 0, 1));
             if (ImGui.Button("Y")) { new_vector.Y = init.Y; IsUsed = true; }
             ImGui.PopStyleColor();
             ImGui.SameLine();
-            ImGui.PushItemWidth(width);
-            float Y = new_vector.Y;
-            if (ImGui.DragFloat("##y", ref Y, speed, min.Y, max.Y, "%.2f"))
-            {
-                IsUsed = true;
-                new_vector.Y = Y;
-            }
+            ImGui.PushItemWidth(size_x / 3.0f - text_width / 3.0f + buffer / 6.0f);
+            if (ImGui.DragFloat("##y", ref new_vector.Y, speed, min.Y, max.Y)) IsUsed = true;
+            ImGui.PopItemWidth();
+
+            // Z
+            NextCursorPosX = ImGui.GetCursorPosX() + text_width;
             ImGui.SameLine();
-            ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0, 0, 1, 1));
+            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(0, -1));
+            ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0, 0.2f, 0.7f, 1));
             if (ImGui.Button("Z")) { new_vector.Z = init.Z; IsUsed = true; }
             ImGui.PopStyleColor();
             ImGui.SameLine();
-            ImGui.PushItemWidth(width);
-            float Z = new_vector.Z;
-            if (ImGui.DragFloat("##z", ref Z, speed, min.Z, max.Z, "%.2f"))
-            {
-                IsUsed = true;
-                new_vector.Z = Z;
-            }
+            ImGui.PushItemWidth(size_x / 3.0f - text_width / 3.0f + buffer / 6.0f);
+            if (ImGui.DragFloat("##z", ref new_vector.Z, speed, min.Z, max.Z)) IsUsed = true;
             ImGui.PopItemWidth();
+
             ImGui.PopID();
 
             if (IsUsed) vector = new_vector;

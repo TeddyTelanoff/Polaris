@@ -61,6 +61,7 @@ namespace Polaris
                             go.Material.Push();
                             go.Material.Bind();
                             GL.DrawMesh(go.Mesh, Camera.current, go.Transform);
+                            go.Material.Pop();
                         }
                     }
                 }

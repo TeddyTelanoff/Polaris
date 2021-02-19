@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "3ZbFlIyWT/NvwdqiBCF0ikHLs6VqO5T67uZT2MxDSsSTZI70Ihs+BaLyUvFw2LIxtKM52Q9OVXbKRURluTKHsw==",
+  "dgSpecHash": "cSTliXb0K7QIj+R7JRtbHot8eIdmj1LSvnqoOJlXIFUQ8MhQjAVzgam2tFBFDNmAjZ96PEj9R980e0XIlzX+qA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\PolarisGame\\PolarisGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mtheumann\\.nuget\\packages\\assimpnet\\4.1.0\\assimpnet.4.1.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\cxuesong.shims.visualbasic.devices\\0.3.0\\cxuesong.shims.visualbasic.devices.0.3.0.nupkg.sha512",
+    "C:\\Users\\mtheumann\\.nuget\\packages\\imgui.net\\1.78.0\\imgui.net.1.78.0.nupkg.sha512",
+    "C:\\Users\\mtheumann\\.nuget\\packages\\imgui.net.docking\\1.75.0\\imgui.net.docking.1.75.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.0.0\\microsoft.codeanalysis.analyzers.3.0.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.codeanalysis.common\\3.8.0\\microsoft.codeanalysis.common.3.8.0.nupkg.sha512",
@@ -53,7 +55,6 @@
     "C:\\Users\\mtheumann\\.nuget\\packages\\silk.net.vulkan.extensions.khr\\2.0.0\\silk.net.vulkan.extensions.khr.2.0.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\silk.net.windowing\\2.0.0\\silk.net.windowing.2.0.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\silk.net.windowing.common\\2.0.0\\silk.net.windowing.common.2.0.0.nupkg.sha512",
-    "C:\\Users\\mtheumann\\.nuget\\packages\\silk.net.windowing.desktop\\1.9.0\\silk.net.windowing.desktop.1.9.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\silk.net.windowing.glfw\\2.0.0\\silk.net.windowing.glfw.2.0.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\silk.net.windowing.sdl\\2.0.0\\silk.net.windowing.sdl.2.0.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\sixlabors.imagesharp\\1.0.2\\sixlabors.imagesharp.1.0.2.nupkg.sha512",
@@ -123,7 +124,6 @@
     "C:\\Users\\mtheumann\\.nuget\\packages\\ultz.native.glfw\\3.3.2.1\\ultz.native.glfw.3.3.2.1.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\ultz.native.sdl\\2.0.12\\ultz.native.sdl.2.0.12.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\vim.math3d\\1.1.0\\vim.math3d.1.1.0.nupkg.sha512",
-    "C:\\Users\\mtheumann\\.nuget\\packages\\imgui.net\\1.78.0\\imgui.net.1.78.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\ultz.silkextensions.imgui\\1.0.0\\ultz.silkextensions.imgui.1.0.0.nupkg.sha512"
   ],
   "logs": []

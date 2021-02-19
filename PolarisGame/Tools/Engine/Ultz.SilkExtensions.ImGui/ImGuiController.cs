@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using ImGuiNET;
-using ImPlotNET;
 using Silk.NET.Input;
 using Silk.NET.Input.Extensions;
 using Silk.NET.Maths;
@@ -89,18 +88,11 @@ namespace Ultz.SilkExtensions.ImGui
 
             IntPtr context = ImGuiNET.ImGui.CreateContext();
             ImGuiNET.ImGui.SetCurrentContext(context);
-            ImGuiNET.Data.Context = context;
-            ImGuiNET.Data.Init();
-            ImGuizmoNET.Data.Init();
-            ImNodesNET.Data.Init();
-            ImPlotNET.Data.Init();
-            IntPtr implotContext = ImPlot.CreateContext(); ImPlot.SetCurrentContext(implotContext); ImPlot.SetImGuiContext(context);
         }
 
         private void BeginFrame()
         {
             ImGuiNET.ImGui.NewFrame();
-            ImGuizmoNET.ImGuizmo.BeginFrame();
             _frameBegun = true;
             _keyboard = _input.Keyboards[0];
             _view.Resize += WindowResized;

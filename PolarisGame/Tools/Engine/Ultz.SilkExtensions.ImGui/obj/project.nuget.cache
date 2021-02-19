@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vZsO2GKDcVYTUwAi1JxK2zcaOld4n8rU0sHwq0NwTTD2KpTvHsgNNHZmrI0SMrp+QNPO/0XuoINAwKUe23CRLQ==",
+  "dgSpecHash": "eg1YFIBNamMPJGA4fekKX0ZcJTYofLahCEZcNr5yIOLbC/XtvW9FUJ9gZ88amx4p6pmVbC/CtPHd69mNAb3hbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mtheumann\\Documents\\GitHub\\Polaris\\PolarisGame\\Tools\\Engine\\Ultz.SilkExtensions.ImGui\\Ultz.SilkExtensions.ImGui.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\mtheumann\\.nuget\\packages\\imgui.net\\1.78.0\\imgui.net.1.78.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -28,8 +29,7 @@
     "C:\\Users\\mtheumann\\.nuget\\packages\\system.text.json\\4.7.0\\system.text.json.4.7.0.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
     "C:\\Users\\mtheumann\\.nuget\\packages\\ultz.bcl.half\\1.0.0\\ultz.bcl.half.1.0.0.nupkg.sha512",
-    "C:\\Users\\mtheumann\\.nuget\\packages\\ultz.bcl.half.fallback\\1.0.0\\ultz.bcl.half.fallback.1.0.0.nupkg.sha512",
-    "C:\\Users\\mtheumann\\.nuget\\packages\\imgui.net\\1.78.0\\imgui.net.1.78.0.nupkg.sha512"
+    "C:\\Users\\mtheumann\\.nuget\\packages\\ultz.bcl.half.fallback\\1.0.0\\ultz.bcl.half.fallback.1.0.0.nupkg.sha512"
   ],
   "logs": []
 }
