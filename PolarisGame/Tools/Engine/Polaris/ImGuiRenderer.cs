@@ -177,5 +177,11 @@ namespace Polaris
 			ImGui.SaveIniSettingsToDisk("imgui.ini");
 			ImGuiController?.Dispose();
         }
+
+        public override string GetName()
+        {
+			return "ImGuiRenderer";
+
+		}
     }
 }

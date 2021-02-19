@@ -11,11 +11,13 @@ namespace Polaris
     {
         internal static Silk.NET.OpenGL.GL OGL => Application.GL;
 
+        public readonly string Filename = "";
         public int NativeTexture = -1;
         public Bitmap Bitmap = null;
 
         public unsafe Texture(string Filename)
         {
+            this.Filename = Filename;
             Bitmap = new Bitmap(Filename);
             OGL.Enable(GLEnum.Texture2D);
 

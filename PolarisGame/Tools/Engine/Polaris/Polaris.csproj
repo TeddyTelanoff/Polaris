@@ -100,6 +100,9 @@
     <None Update="Assets\builtin\gl\tests\test1\test_assets\Drill_01_8-bit_Diffuse.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\builtin\shaders\std\shader">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\builtin\shaders\std\StandardShader.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,4 @@
+﻿v_ShaderName<Built In/Standard>
+s_VertexShader<StandardShader.vert>
+s_FragmentShader<StandardShader.frag>
+t_MainTexture<|NO-TEX|>

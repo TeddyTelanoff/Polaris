@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Polaris
 {
+    [Serializable]
     public class GameObject
     {
         public string Name = "";
@@ -33,7 +34,7 @@ namespace Polaris
                 }
             }
         }
-        public Layer Layer
+        public string Layer
         {
             get
             {
@@ -44,6 +45,7 @@ namespace Polaris
                 Data.Layer = value;
             }
         }
+        // Technically serializable, but points to memory. Must be reloaded on scene open.
         public Mesh Mesh
         {
             get
@@ -55,7 +57,8 @@ namespace Polaris
                 Data.Mesh = value;
             }
         }
-        public Material Material
+        // Technically serializable, but points to memory. Clear property cache on scene open. /// hmm
+        public RawMaterial Material
         {
             get
             {
@@ -174,9 +177,9 @@ namespace Polaris
         internal class GameObjectData
         {
             public GameObject Parent = null;
-            public Layer Layer = Application.Get();
+            public string Layer = "Application";
             public Mesh Mesh = Mesh.Empty;
-            public Material Material = null;
+            public RawMaterial Material = null;
             public bool IsRuntimeObject = true;
             public bool IsSelected = false;
             public bool IsEditing = false;

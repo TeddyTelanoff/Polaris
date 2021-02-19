@@ -6,17 +6,18 @@ using System.Text;
 
 namespace Polaris
 {
+    [Serializable]
     public sealed class MaterialProperties
     {
         internal static Silk.NET.OpenGL.GL OGL => Application.GL;
 
-        private Dictionary<string, int> Cache = new Dictionary<string, int>();
+        internal Dictionary<string, int> Cache = new Dictionary<string, int>();
 
         private int GetLocation(string name)
         {
             if (!Cache.ContainsKey(name))
             { 
-                int Program = (int)Material.CurrentProgram;
+                int Program = (int)RawMaterial.CurrentProgram;
                 Cache.Add(name, OGL.GetUniformLocation((uint)Program, name));
             }
             return Cache[name];

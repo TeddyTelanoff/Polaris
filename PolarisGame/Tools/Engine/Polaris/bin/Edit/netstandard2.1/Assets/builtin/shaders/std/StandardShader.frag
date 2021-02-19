@@ -5,9 +5,9 @@ in vec3 pass_Normal;
 
 out vec4 Color;
 
-uniform sampler2D tex;
+uniform sampler2D MainTexture;
 
 void main()
 {
-	Color = texture(tex, pass_UV);
+	Color = texture(MainTexture, pass_UV);
 }

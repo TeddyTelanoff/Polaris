@@ -1,105 +1,249 @@
-﻿using System;
+﻿using Silk.NET.OpenGL;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Numerics;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Polaris
 {
-    public abstract class Material
+    public class Material : RawMaterial
     {
-        internal static Silk.NET.OpenGL.GL OGL => Application.GL;
-
-        public MaterialProperties Properties = new MaterialProperties();
-
-        public abstract void AddShaders();
-        public abstract void Bind();
-
-        private int Program = -1;
-        private bool HasShaders = false;
-        private readonly List<int> Shaders = new List<int>();
-
-        internal static int CurrentProgram = -1;
-
-        public Material()
+        private string _MaterialName = "";
+        public string MaterialName
         {
-            BasicBind();
-            AddShaders();
-        }
-
-        public void AddShader(ShaderType ShaderType, string src, SourceType SourceType = SourceType.Filepath)
-        {
-            BasicBind();
-            if (SourceType == SourceType.Filepath) AddShader(ShaderType, File.ReadAllText(src), SourceType.Filedata);
-            else if (SourceType == SourceType.Filedata) AddShaderData(ShaderType, src);
-        }
-
-        private void AddShaderData(ShaderType ShaderType, string src)
-        {
-            int shader = CreateShader(ShaderType, src);
-            CheckShader(shader);
-            OGL.AttachShader((uint)Program, (uint)shader);
-            Shaders.Add(shader);
-            HasShaders = true;
-        }
-
-        private int CreateShader(ShaderType ShaderType, string src)
-        {
-            int shader = (int)OGL.CreateShader((Silk.NET.OpenGL.ShaderType)ShaderType);
-            OGL.ShaderSource((uint)shader, src);
-            OGL.CompileShader((uint)shader);
-            return shader;
-        }
-
-        private void CheckShader(int shader)
-        {
-            string log = OGL.GetShaderInfoLog((uint)shader);
-            if (!string.IsNullOrWhiteSpace(log)) throw new Exception(log);
-        }
-
-        public void Push()
-        {
-            BasicBind();
-            if (HasShaders)
+            get
             {
-                OGL.LinkProgram((uint)Program);
-                CheckProgram(Program);
-                DeleteShaderSources();
-                HasShaders = false;
-                Shaders.Clear();
+                MaterialName = _MaterialName;
+                return _MaterialName;
             }
-            BasicBind();
-            CurrentProgram = Program;
-        }
-
-        private void CheckProgram(int Program)
-        {
-            OGL.ValidateProgram((uint)Program);
-            string log = OGL.GetProgramInfoLog((uint)Program);
-            if (!string.IsNullOrWhiteSpace(log)) throw new Exception(log);
-        }
-
-        private void DeleteShaderSources()
-        {
-            foreach (int shader in Shaders)
+            set
             {
-                //-:cnd:noEmit
-#if RELEASE
-                    OGL.DetachShader((uint)Program, (uint)shader);
-#endif
-                //+:cnd:noEmit
-                OGL.DeleteShader((uint)shader);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    _MaterialName = "New Material";
+                }
+                else
+                {
+                    _MaterialName = value;
+                }
+            }
+        }
+        public string ShaderName = "Error/Untitled";
+        public string ShaderPath = "";
+        private static Dictionary<string, Texture> TextureCache = new Dictionary<string, Texture>();
+
+        private string FilePath
+        {
+            get
+            {
+                return Path.Combine(ShaderPath, "shader");
+            }
+        }
+        private string _Src = null;
+        private bool _SrcSet = false;
+        private string Src
+        {
+            get
+            {
+                if (!_SrcSet)
+                {
+                    try
+                    {
+                        _Src = File.ReadAllText(FilePath);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    _SrcSet = true;
+                }
+                return _Src;
             }
         }
 
-        public void Pop()
+        protected override bool CustomInit()
         {
-            OGL.UseProgram(0);
+            return true;
         }
 
-        private void BasicBind()
+        public Material(string ShaderPath)
         {
-            if (Program < 0) Program = (int)OGL.CreateProgram();
-            OGL.UseProgram((uint)Program);
+            if (!Directory.Exists(ShaderPath)) throw new Exception("Shader directory/path doesn't exist!");
+            this.ShaderPath = ShaderPath;
+            Init();
+            EditorGUI.Materials.Add(this);
+        }
+
+        public override void AddShaders()
+        {
+            if (Src == null)
+            {
+                ShaderPath = @"Assets\builtin\shaders\std";
+            }
+            foreach (string tmp_ln in Src.Split('>'))
+            {
+                string ln = tmp_ln + ">";
+                ln = ln.Replace("\n", "").Replace("\r", "");
+                if (ln.StartsWith("v_"))
+                {
+                    string v = ln.Split(new string[] { "v_" }, StringSplitOptions.None)[1].Split('<')[0];
+                    if (v == "ShaderName")
+                    {
+                        string n = ln.Split('<')[1].Split('>')[0];
+                        ShaderName = n;
+                    }
+                }
+                if (ln.StartsWith("s_"))
+                {
+                    string sh = ln.Split(new string[] { "s_" }, StringSplitOptions.None)[1].Split('<')[0];
+                    ShaderType st = (ShaderType)Enum.GetValues
+                        (typeof(ShaderType)).GetValue
+                        (Enum.GetNames(typeof
+                        (ShaderType)).ToList().IndexOf(sh));
+                    string src = ln.Split('<')[1].Split('>')[0];
+                    if (File.Exists(Path.Combine(ShaderPath, src))) src = Path.Combine(ShaderPath, src);
+                    if (!File.Exists(src)) throw new Exception("Shader doesn't exist: " + Enum.GetName(typeof(ShaderType), st) + "@" + src);
+                    AddShader(st, src);
+                }
+            }
+        }
+
+        public class Property
+        {
+            public readonly string Name = "";
+            public readonly string Value = "";
+            public readonly Type Type = null;
+
+            public Property(string Name, string Value, Type Type)
+            {
+                this.Name = Name;
+                this.Value = Value;
+                this.Type = Type;
+
+                this.Value = this.Value.Replace("|NO-TEX|", @"Assets\builtin\textures\prototyping\Purple\texture_08.png");
+            }
+
+            public object Get(bool CreateTexture = false)
+            {
+                if (CreateTexture && Type == typeof(Texture)) return new Texture(Value);
+                if (Type == typeof(float)) return float.Parse(Value);
+                if (Type == typeof(Vector2)) return new Vector2
+                        (float.Parse(Regex.Replace(Value.Split(',')[0], @"\s+", "")),
+                        float.Parse(Regex.Replace(Value.Split(',')[1], @"\s+", "")));
+                if (Type == typeof(Vector3)) return new Vector3
+                        (float.Parse(Regex.Replace(Value.Split(',')[0], @"\s+", "")),
+                        float.Parse(Regex.Replace(Value.Split(',')[1], @"\s+", "")),
+                        float.Parse(Regex.Replace(Value.Split(',')[2], @"\s+", "")));
+                return Value;
+            }
+
+            public T Get<T>(bool CreateTexture = false)
+            {
+                return (T)Get(CreateTexture);
+            }
+        }
+
+        public List<Property> GetProperties()
+        {
+            List<Property> Lst = new List<Property>();
+            foreach (string tmp_ln in Src.Split('>'))
+            {
+                string ln = tmp_ln + ">";
+                ln = ln.Replace("\n", "").Replace("\r", "");
+                ln = new Property(null, ln, null).Value;
+                if (ln.StartsWith("t_"))
+                {
+                    string t_name = ln.Split(new string[] { "t_" }, StringSplitOptions.None)[1].Split('<')[0];
+                    string src = ln.Split('<')[1].Split('>')[0];
+                    if (File.Exists(Path.Combine(ShaderPath, src))) src = Path.Combine(ShaderPath, src);
+                    Lst.Add(new Property(t_name, src, typeof(Texture)));
+                }
+                if (ln.StartsWith("f_"))
+                {
+                    string f_name = ln.Split(new string[] { "f_" }, StringSplitOptions.None)[1].Split('<')[0];
+                    string src = ln.Split('<')[1].Split('>')[0];
+                    int dim = src.ToCharArray().Count(c => c == ',') + 1;
+                    if (dim == 1) Lst.Add(new Property(f_name, src, typeof(float)));
+                    if (dim == 2) Lst.Add(new Property(f_name, src, typeof(Vector2)));
+                    if (dim == 3) Lst.Add(new Property(f_name, src, typeof(Vector3)));
+                }
+            }
+            return Lst;
+        }
+
+        public void SetProperty(string Name, string value)
+        {
+            string src = Src;
+            foreach (string tmp_ln in Src.Split('>'))
+            {
+                string ln = tmp_ln + ">";
+                try
+                {
+                    ln = ln.Replace("\n", "").Replace("\r", "");
+                    if (ln.Split('_')[1].Split('<')[0] == Name)
+                    {
+                        ln = ln.Replace("<" + ln.Split('<')[1].Split('>')[0] + ">", "<" + value + ">");
+                    }
+                }
+                catch { }
+                src += ln + Environment.NewLine;
+            }
+            _Src = src;
+        }
+
+        public void SetProperty(string Name, Texture value)
+        {
+            SetProperty(Name, value.Filename);
+        }
+
+        public void SetProperty(string Name, float value)
+        {
+            SetProperty(Name, value.ToString());
+        }
+
+        public void SetProperty(string Name, Vector2 value)
+        {
+            SetProperty(Name, value.X.ToString() + ", " + value.Y.ToString());
+        }
+
+        public void SetProperty(string Name, Vector3 value)
+        {
+            SetProperty(Name, value.X.ToString() + ", " + value.Y.ToString() + ", " + value.Z.ToString());
+        }
+
+        public override void Bind()
+        {
+            int TexIdx = 0;
+            foreach (Property property in GetProperties())
+            {
+                if (property.Type == typeof(Texture))
+                {
+                    string path = property.Get<string>();
+                    if (!File.Exists(path)) throw new Exception("Texture doesn't exist: " + property.Name + "@" + path);
+                    if (!TextureCache.ContainsKey(path)) TextureCache.Add(path, property.Get<Texture>(true));
+                    TextureUnit TexUnit = (Silk.NET.OpenGL.TextureUnit)Enum.GetValues(typeof(Silk.NET.OpenGL.TextureUnit)).GetValue
+                        (Enum.GetNames(typeof(Silk.NET.OpenGL.TextureUnit)).ToList().IndexOf("Texture" + TexIdx));
+                    OGL.ActiveTexture(TexUnit);
+                    TextureCache[path].Bind();
+                    Properties.SetProperty1(property.Name, TexIdx);
+                    TexIdx++;
+                }
+                else if (property.Type == typeof(float))
+                {
+                    Properties.SetProperty1(property.Name, property.Get<float>());
+                }
+                else if (property.Type == typeof(Vector2))
+                {
+                    Properties.SetProperty2(property.Name, property.Get<Vector2>());
+                }
+                else if (property.Type == typeof(Vector3))
+                {
+                    Properties.SetProperty3(property.Name, property.Get<Vector3>());
+                }
+            }
         }
     }
 }

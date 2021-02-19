@@ -79,6 +79,10 @@ namespace Polaris
                 EditorGUI.NewGameName = "";
                 EditorGUI.ProjectDialog = false;
             }
+            if (arg2 == Key.Tab)
+            {
+                EditorGUI.ShouldUpdateEditorCamera ^= true;
+            }
         }
     }
 }

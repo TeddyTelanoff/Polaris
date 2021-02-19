@@ -10,7 +10,7 @@ namespace PolarisGame
     {
         static GameObject Drill = null;
         static Mesh DrillMesh = null;
-        static StandardMaterial DrillMat = null;
+        static Material DrillMat = null;
         static Texture DrillTex = null;
 
         public override void OnAttach()
@@ -21,9 +21,9 @@ namespace PolarisGame
             };
             DrillMesh = Mesh.LoadFromModel(@"Assets/builtin/gl/tests/test1/test_assets/Drill_01.FBX");
             Drill.Mesh = DrillMesh;
-            DrillMat = new StandardMaterial();
+            DrillMat = new Material(@"Assets\builtin\shaders\std");
             DrillTex = new Texture(@"Assets/builtin/gl/tests/test1/test_assets/Drill_01_8-bit_Diffuse.png");
-            DrillMat.MainTex = DrillTex;
+            DrillMat.SetProperty("MainTexture", DrillTex);
             Drill.Material = DrillMat;
             Drill.Scale = new Vector3(0.06f, 0.06f, 0.06f);
             Drill.Position = new Vector3(0, 0, 0);
@@ -33,12 +33,17 @@ namespace PolarisGame
 
         public override void OnUpdate()
         {
-            Console.WriteLine("Hello Update!");
+            //Console.WriteLine("Hello Update!");
         }
 
         public override void OnDetach()
         {
             Console.WriteLine("Goodbye World!");
+        }
+
+        public override string GetName()
+        {
+            return "Application";
         }
     }
 }

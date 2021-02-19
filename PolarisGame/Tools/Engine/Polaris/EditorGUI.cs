@@ -23,6 +23,8 @@ namespace Polaris
         internal static bool ShowHidden = false;
         internal static bool ProjectDialog = false;
         internal static string NewGameName = "";
+        internal static string MaterialName = "";
+        internal static List<Material> Materials = new List<Material>();
         internal unsafe static void Render()
         {
             Vector2 WindowMinSize = ImGui.GetStyle().WindowMinSize;
@@ -136,6 +138,76 @@ namespace Polaris
                     {
                         go.Scale = Sc;
                     }
+
+                    ImGui.NewLine();
+
+                    //ImGui.Text("Shader");
+                    //int sh = 0;
+                    //ImGui.Combo("##sh", ref sh, )
+                    ImGui.TreePush();
+                    if (ImGui.TreeNode("Materials"))
+                    {
+                        ImGui.Text("Material Properties");
+                        if (go.Material != null && go.Material is Material)
+                        {
+                            if (ImGui.TreeNode(((Material)go.Material).MaterialName))
+                            {
+                                ImGui.Text("'" + ((Material)go.Material).MaterialName + "' Properties");
+                                ImGui.Text("Shader: " + ((Material)go.Material).ShaderName);
+                                ImGui.TreePop();
+                            }
+                        }
+                        else
+                        {
+                            if (ImGui.TreeNode("None"))
+                            {
+                                ImGui.TreePop();
+                            }
+                        }
+                        ImGui.NewLine();
+                        ImGui.Text("Material Asset Explorer");
+                        if (ImGui.TreeNode("Tools"))
+                        {
+                            ImGui.Text("New Material");
+                            ImGui.InputText("##nmat", ref MaterialName, 100);
+                            if (ImGui.Button("Create"))
+                            {
+                                Material mat = new Material(@"Assets\builtin\shaders\std");
+                                mat.MaterialName = MaterialName;
+                                go.Material = mat;
+                            }
+                            ImGui.NewLine();
+                            ImGui.Text("New Name");
+                            ImGui.InputText("##nmat1", ref MaterialName, 100);
+                            if (ImGui.Button("Rename"))
+                            {
+                                if (go.Material != null && go.Material is Material) ((Material)go.Material).MaterialName = MaterialName;
+                            }
+                            ImGui.NewLine();
+                            ImGui.Text("Use Material");
+                            ImGui.InputText("##nmat2", ref MaterialName, 100);
+                            if (ImGui.Button("Set"))
+                            {
+                                try
+                                {
+                                    go.Material = Materials.First(mat => mat.MaterialName.ToLower() == MaterialName.ToLower());
+                                }
+                                catch 
+                                {
+                                    MaterialName = "Error: That material doesn't exist!";
+                                }
+                            }
+                            ImGui.NewLine();
+                            if (ImGui.Button("Delete Material"))
+                            {
+                                if (go.Material != null && go.Material is Material) Materials.RemoveAll(m => m.MaterialName == ((Material)go.Material).MaterialName);
+                                go.Material = null;
+                            }
+                            ImGui.TreePop();
+                        }
+                        ImGui.TreePop();
+                    }
+                    ImGui.TreePop();
                     break;
                 }
                 ImGui.End();
@@ -269,11 +341,11 @@ namespace Polaris
                 {
                     Vector4 col = style.Colors[i];
                     string name = Enum.GetNames(typeof(ImGuiCol))[i];
-                    sw.WriteLine("style.Colors[(int)ImGuiCol." + name + "] = new Vector4(" + 
-                        col.X.ToString() + "f, " + col.Y.ToString() + "f, " + 
+                    sw.WriteLine("style.Colors[(int)ImGuiCol." + name + "] = new Vector4(" +
+                        col.X.ToString() + "f, " + col.Y.ToString() + "f, " +
                         col.Z.ToString() + "f, " + col.W.ToString() + "f);\n");
                 }
-                sw.Close(); 
+                sw.Close();
                 new Process
                 {
                     StartInfo = new ProcessStartInfo(@"C:\Users\Public\Documents\theme.txt")
@@ -782,7 +854,7 @@ namespace Polaris
                             {
                                 Print(value, false);
                                 ImGui.TreePop();
-                                }
+                            }
                         }
                         catch { }
                     }
@@ -907,97 +979,108 @@ namespace Polaris
         internal static bool LastMousePositionSet = false;
         internal static Vector2 LastMousePosition = new Vector2(-1, -1);
         internal static float RotSpeed = 50;
+        internal static bool ShouldUpdateEditorCamera = false;
         internal static void UpdateEditorCamera()
         {
-            //float DeltaX = 0;
-            //float DeltaY = 0;
-            //if (LastMousePositionSet)
-            //{
-            //    DeltaX = Application.Get().input.Mice[0].Position.X - LastMousePosition.X;
-            //    DeltaY = Application.Get().input.Mice[0].Position.Y - LastMousePosition.Y;
-            //    Application.Get().input.Mice[0].Position -= new Vector2(DeltaX, DeltaY);
-            //}
-            //else
-            //{
-            //    Application.Get().input.Mice[0].Position = new Vector2
-            //        (Application.Get().MainWindow.Position.X +
-            //         Application.Get().MainWindow.Size.X / 2.0f,
-            //         Application.Get().MainWindow.Position.Y +
-            //         Application.Get().MainWindow.Size.Y / 2.0f);
-            //    Application.Get().input.Mice[0].Cursor.CursorMode = CursorMode.Hidden;
-            //    Application.Get().input.Mice[0].Cursor.IsConfined = true;
-            //}
-            //Vector3 PreRot = Camera.editor.Rotation;
-            //Camera.editor.Rotation += new Vector3
-            //(
-            //    DeltaY * RotSpeed * Time.DeltaTime,
-            //    DeltaX * RotSpeed * Time.DeltaTime * -1.0f,
-            //    0.0f
-            //);
-            //if (Math.Abs(Camera.editor.Rotation.X) >= 88)
-            //{
-            //    Camera.editor.Rotation.X = PreRot.X;
-            //}
-            //float Speed = Time.DeltaTime * 400.0f;
-            //if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.W))
-            //{
-            //    Camera.editor.Position +=
-            //        Vector3.Transform(new System.Numerics.Vector3(0, 0, Speed),
-            //        Matrix4x4.CreateFromYawPitchRoll
-            //        (
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
-            //        ));
-            //}
-            //if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.S))
-            //    {
-            //    Camera.editor.Position +=
-            //        Vector3.Transform(new System.Numerics.Vector3(0, 0, -Speed),
-            //        Matrix4x4.CreateFromYawPitchRoll
-            //        (
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
-            //        ));
-            //}
-            //if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.A))
-            //    {
-            //    Camera.editor.Position +=
-            //        Vector3.Transform(new System.Numerics.Vector3(Speed, 0, 0),
-            //        Matrix4x4.CreateFromYawPitchRoll
-            //        (
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
-            //        ));
-            //}
-            //if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.D))
-            //    {
-            //    Camera.editor.Position +=
-            //        Vector3.Transform(new System.Numerics.Vector3(-Speed, 0, 0),
-            //        Matrix4x4.CreateFromYawPitchRoll
-            //        (
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
-            //            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
-            //        ));
-            //}
-            //if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.Space))
-            //    {
-            //    Camera.editor.Position += new System.Numerics.Vector3(0, Speed, 0);
-            //}
-            //if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.ShiftLeft))
-            //    {
-            //    Camera.editor.Position += new System.Numerics.Vector3(0, -Speed, 0);
-            //}
-            //if (RotSpeed < 50)
-            //{
-            //    RotSpeed += Math.Abs(10.0f + DeltaX + DeltaY) / 3.0f;
-            //}
-            //else
-            //{
-            //    RotSpeed = 50;
-            //}
-            //LastMousePosition = Application.Get().input.Mice[0].Position;
-            //LastMousePositionSet = true;
-        }
+            if (ShouldUpdateEditorCamera)
+            {
+                float DeltaX = 0;
+                float DeltaY = 0;
+                Application.Get().input.Mice[0].Cursor.CursorMode = CursorMode.Hidden;
+                Application.Get().input.Mice[0].Cursor.IsConfined = true;
+                if (LastMousePositionSet)
+                {
+                    DeltaX = Application.Get().input.Mice[0].Position.X - LastMousePosition.X;
+                    DeltaY = Application.Get().input.Mice[0].Position.Y - LastMousePosition.Y;
+                    Application.Get().input.Mice[0].Position -= new Vector2(DeltaX, DeltaY);
+                }
+                else
+                {
+                    Application.Get().input.Mice[0].Position = new Vector2
+                        (Application.Get().MainWindow.Position.X +
+                         Application.Get().MainWindow.Size.X / 2.0f,
+                         Application.Get().MainWindow.Position.Y +
+                         Application.Get().MainWindow.Size.Y / 2.0f);
+                    Application.Get().input.Mice[0].Cursor.CursorMode = CursorMode.Hidden;
+                    Application.Get().input.Mice[0].Cursor.IsConfined = true;
+                }
+                Vector3 PreRot = Camera.editor.Rotation;
+                Camera.editor.Rotation += new Vector3
+                (
+                    DeltaY * RotSpeed * Time.DeltaTime,
+                    DeltaX * RotSpeed * Time.DeltaTime * -1.0f,
+                    0.0f
+                );
+                if (Math.Abs(Camera.editor.Rotation.X) >= 88)
+                {
+                    Camera.editor.Rotation.X = PreRot.X;
+                }
+                float Speed = Time.DeltaTime * 400.0f;
+                if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.W))
+                {
+                    Camera.editor.Position +=
+                        Vector3.Transform(new System.Numerics.Vector3(0, 0, Speed),
+                        Matrix4x4.CreateFromYawPitchRoll
+                        (
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
+                        ));
+                }
+                if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.S))
+                {
+                    Camera.editor.Position +=
+                        Vector3.Transform(new System.Numerics.Vector3(0, 0, -Speed),
+                        Matrix4x4.CreateFromYawPitchRoll
+                        (
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
+                        ));
+                }
+                if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.A))
+                {
+                    Camera.editor.Position +=
+                        Vector3.Transform(new System.Numerics.Vector3(Speed, 0, 0),
+                        Matrix4x4.CreateFromYawPitchRoll
+                        (
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
+                        ));
+                }
+                if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.D))
+                {
+                    Camera.editor.Position +=
+                        Vector3.Transform(new System.Numerics.Vector3(-Speed, 0, 0),
+                        Matrix4x4.CreateFromYawPitchRoll
+                        (
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Y), 0,
+                            Vim.MathOps.ToRadians(Camera.editor.Rotation.Z)
+                        ));
+                }
+                if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.Space))
+                {
+                    Camera.editor.Position += new System.Numerics.Vector3(0, Speed, 0);
+                }
+                if (Application.Get().input.Keyboards[0].IsKeyPressed(Key.ShiftLeft))
+                {
+                    Camera.editor.Position += new System.Numerics.Vector3(0, -Speed, 0);
+                }
+                if (RotSpeed < 50)
+                {
+                    RotSpeed += Math.Abs(10.0f + DeltaX + DeltaY) / 3.0f;
+                }
+                else
+                {
+                    RotSpeed = 50;
+                }
+                LastMousePosition = Application.Get().input.Mice[0].Position;
+                LastMousePositionSet = true;
+            }
+            else
+            {
+                Application.Get().input.Mice[0].Cursor.CursorMode = CursorMode.Normal;
+                Application.Get().input.Mice[0].Cursor.IsConfined = false;
+            }
+        } 
     }
     internal static class SwapExt
     {

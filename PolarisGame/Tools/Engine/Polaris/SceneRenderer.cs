@@ -54,7 +54,7 @@ namespace Polaris
             {
                 foreach (GameObject go in Scene.LoadedScene.FindAll())
                 {
-                    if (go.Layer == layer && go.Mesh != null)
+                    if (go.Layer == layer.GetName() && go.Mesh != null)
                     {
                         if (go.Material != null)
                         {
@@ -140,6 +140,11 @@ namespace Polaris
                 GLEnum.Renderbuffer, (uint)DepthBuffer);
             OGL.BindTexture(GLEnum.Texture2D, 0);
             OGL.BindFramebuffer(GLEnum.Framebuffer, 0);
+        }
+
+        public override string GetName()
+        {
+            return "SceneRenderer";
         }
     }
 }

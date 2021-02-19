@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Polaris
 {
+    [Serializable]
     public class Scene
     {
         public static Scene LoadedScene = new Scene();
