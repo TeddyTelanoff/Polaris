@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 
 namespace Polaris
 {
@@ -30,6 +31,7 @@ namespace Polaris
 
         public void Run()
         {
+            Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "Assets");
             LayerStack = ImmutableList.Create<Layer>();
             CreateWindow();
             GL?.Dispose();

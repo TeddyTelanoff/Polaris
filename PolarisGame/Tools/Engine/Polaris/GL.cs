@@ -12,7 +12,7 @@ namespace Polaris
         internal static Matrix4x4 view = Matrix4x4.Identity;
         internal static Matrix4x4 proj = Matrix4x4.Identity;
 
-        public unsafe static void DrawMesh(Mesh mesh, Camera cam, Matrix4x4 WorldTransform)
+        public unsafe static void DrawMesh(Mesh mesh, Camera cam, Matrix4x4 WorldTransform, bool Wireframe = false)
         {
             if (cam == null) cam = Camera.current;
             //-:cnd:noEmit
@@ -42,12 +42,22 @@ namespace Polaris
                 }
             }
             mesh.Bind();
+            if (Wireframe)
+            {
+                OGL.Disable(EnableCap.CullFace);
+                OGL.PolygonMode(GLEnum.FrontAndBack, GLEnum.Line);
+            }
             OGL.DrawElements
                 (GLEnum.Triangles,
                 (uint)mesh.Indices.Length, GLEnum.UnsignedInt, (void*)0);
             foreach (Mesh m in mesh.SubMeshes)
             {
-                DrawMesh(m, cam, WorldTransform);
+                DrawMesh(m, cam, WorldTransform, Wireframe);
+            }
+            if (Wireframe)
+            {
+                OGL.Enable(EnableCap.CullFace);
+                OGL.PolygonMode(GLEnum.FrontAndBack, GLEnum.Fill);
             }
         }
     }

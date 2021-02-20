@@ -8,6 +8,7 @@ using ImGuiNET;
 using System.Numerics;
 using System.Text;
 using System.IO;
+using System;
 
 namespace Polaris
 {
@@ -26,21 +27,21 @@ namespace Polaris
             );
 
 			ImGui.GetIO().NativePtr->IniFilename = null;
-			if (!File.Exists("imgui.ini"))
+			if (!File.Exists(new DirectoryInfo(Environment.CurrentDirectory).Parent.FullName + @"/imgui.ini"))
 			{
-				ImGui.SaveIniSettingsToDisk("imgui.ini");
+				ImGui.SaveIniSettingsToDisk(new DirectoryInfo(Environment.CurrentDirectory).Parent.FullName + @"/imgui.ini");
 			}
-			ImGui.LoadIniSettingsFromDisk("imgui.ini");
+			ImGui.LoadIniSettingsFromDisk(new DirectoryInfo(Environment.CurrentDirectory).Parent.FullName + @"/imgui.ini");
 
 			ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
 			ImGui.GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
 
 			FontDefault = ImGui.GetIO().Fonts.AddFontFromFileTTF
-				(@"Assets\builtin\fonts\OpenSans\OpenSans-Regular.ttf", 20);
+				(@"builtin\fonts\OpenSans\OpenSans-Regular.ttf", 20);
 			ImGuiController.RecreateFontDeviceTexture();
 
 			FontDefaultHuge = ImGui.GetIO().Fonts.AddFontFromFileTTF
-				(@"Assets\builtin\fonts\OpenSans\OpenSans-Regular.ttf", FontDefault.FontSize * 4);
+				(@"builtin\fonts\OpenSans\OpenSans-Regular.ttf", FontDefault.FontSize * 4);
 			ImGuiController.RecreateFontDeviceTexture();
 
 			ImGuiStylePtr style = ImGui.GetStyle();
@@ -174,7 +175,7 @@ namespace Polaris
 
         public override void OnDetach()
 		{
-			ImGui.SaveIniSettingsToDisk("imgui.ini");
+			ImGui.SaveIniSettingsToDisk(new DirectoryInfo(Environment.CurrentDirectory).Parent.FullName + @"/imgui.ini");
 			ImGuiController?.Dispose();
         }
 

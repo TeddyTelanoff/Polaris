@@ -1,0 +1,4 @@
+﻿v_ShaderName<Built In/Standard Color>
+s_VertexShader<StandardShader.vert>
+s_FragmentShader<StandardShader.frag>
+f_MainColor<1, 1, 1>

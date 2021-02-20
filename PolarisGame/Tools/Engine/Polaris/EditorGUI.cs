@@ -22,6 +22,7 @@ namespace Polaris
         internal static float ViewportAspectRatio = 1.0f;
         internal static bool ShowHidden = false;
         internal static bool ProjectDialog = false;
+        internal static bool EnableWireframe = false;
         internal static string NewGameName = "";
         internal static string MaterialName = "";
         internal static List<Material> Materials = new List<Material>();
@@ -40,6 +41,14 @@ namespace Polaris
                         NewGameName = "";
                         ProjectDialog = true;
 #endif
+                    }
+                    ImGui.EndMenu();
+                }
+                if (ImGui.BeginMenu("View"))
+                {
+                    if (ImGui.Button(EnableWireframe ? "Disable Wireframe" : "Enable Wireframe"))
+                    {
+                        EnableWireframe ^= true;
                     }
                     ImGui.EndMenu();
                 }
@@ -141,9 +150,6 @@ namespace Polaris
 
                     ImGui.NewLine();
 
-                    //ImGui.Text("Shader");
-                    //int sh = 0;
-                    //ImGui.Combo("##sh", ref sh, )
                     ImGui.TreePush();
                     if (ImGui.TreeNode("Materials"))
                     {
@@ -153,7 +159,36 @@ namespace Polaris
                             if (ImGui.TreeNode(((Material)go.Material).MaterialName))
                             {
                                 ImGui.Text("'" + ((Material)go.Material).MaterialName + "' Properties");
-                                ImGui.Text("Shader: " + ((Material)go.Material).ShaderName);
+                                ImGui.Text("Shader");
+                                ImGui.SameLine();
+                                ImGui.Spacing();
+                                ImGui.SameLine();
+                                string[] paths = GetShaderPaths().ToArray();
+                                int ShaderIdx = paths.ToList().FindIndex(fn => Path.GetFullPath(fn) == Path.GetFullPath(((Material)go.Material).ShaderPath));
+                                if (ImGui.Combo("##sh", ref ShaderIdx, SelectShaderNames(paths), paths.Length))
+                                {
+                                    if (!SelectShaderNames(paths)[ShaderIdx].StartsWith(@"Error/"))
+                                    {
+                                        string name = ((Material)go.Material).MaterialName;
+                                        Material mat = new Material(paths[ShaderIdx]);
+                                        Materials.Remove((Material)go.Material);
+                                        mat.MaterialName = name;
+                                        go.Material = mat;
+                                    }
+                                }
+                                ImGui.NewLine();
+                                List<Material.Property> properties = ((Material)go.Material).GetProperties();
+                                foreach (Material.Property property in properties)
+                                {
+                                    ImGui.Text(property.Name);
+                                    if (property.Type == typeof(Texture))
+                                    {
+                                        if (ImGui.ImageButton((IntPtr)property.Get<Texture>(true).NativeTexture, new Vector2(100, 100)))
+                                        {
+
+                                        }
+                                    }
+                                }
                                 ImGui.TreePop();
                             }
                         }
@@ -172,7 +207,7 @@ namespace Polaris
                             ImGui.InputText("##nmat", ref MaterialName, 100);
                             if (ImGui.Button("Create"))
                             {
-                                Material mat = new Material(@"Assets\builtin\shaders\std");
+                                Material mat = new Material(@"builtin\shaders\std");
                                 mat.MaterialName = MaterialName;
                                 go.Material = mat;
                             }
@@ -232,6 +267,39 @@ namespace Polaris
                 }
                 ImGui.End();
             }
+        }
+        internal static string[] SelectShaderNames(string[] paths)
+        {
+            string[] src = paths.Select(fn => File.ReadAllText(Path.Combine(fn, "shader"))).ToArray();
+            List<string> names = new List<string>();
+            foreach (string SRC in src)
+            {
+                bool b = false;
+                foreach (string LN in SRC.Split('>'))
+                {
+                    string ln = LN + ">";
+                    if (ln.StartsWith("v_ShaderName<"))
+                    {
+                        string name = ln.Split('<')[1].Split('>')[0];
+                        names.Add(name);
+                        b = true;
+                    }
+                }
+                if (!b) names.Add(@"Error/No Name");
+            }
+            return names.ToArray();
+        }
+        internal static List<string> GetShaderPaths()
+        {
+            List<string> Lst = new List<string>();
+            foreach (string fn in Directory.GetFiles(Environment.CurrentDirectory, "*.*", SearchOption.AllDirectories))
+            {
+                if (Path.GetFileName(fn) == "shader")
+                {
+                    Lst.Add(new FileInfo(fn).Directory.FullName.Replace(Environment.CurrentDirectory + @"\", ""));
+                }
+            }
+            return Lst;
         }
         static Vector4 Base = new Vector4(0.502f, 0.075f, 0.256f, 1.0f);
         static Vector4 bg = new Vector4(0.200f, 0.220f, 0.270f, 1.0f);

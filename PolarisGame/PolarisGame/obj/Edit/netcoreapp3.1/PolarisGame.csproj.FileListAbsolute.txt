@@ -219,3 +219,6 @@ C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\obj\Edit\net
 C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\obj\Edit\netcoreapp3.1\PolarisGame.pdb
 C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\obj\Edit\netcoreapp3.1\PolarisGame.genruntimeconfig.cache
 C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\bin\Edit\netcoreapp3.1\Assets\builtin\shaders\std\shader
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\bin\Edit\netcoreapp3.1\Assets\builtin\shaders\stdcolor\shader
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\bin\Edit\netcoreapp3.1\Assets\builtin\shaders\stdcolor\StandardShader.frag
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\PolarisGame\bin\Edit\netcoreapp3.1\Assets\builtin\shaders\stdcolor\StandardShader.vert

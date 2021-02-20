@@ -5,6 +5,7 @@ using Silk.NET.Maths;
 using Ultz.SilkExtensions.ImGui;
 using System;
 using System.Drawing;
+using System.Numerics;
 
 namespace Polaris
 {
@@ -18,6 +19,9 @@ namespace Polaris
         public static int DepthBuffer = -1;
         public static int FBOHandle = -1;
 
+        internal static Mesh Grid = null;
+        internal static Material GridMat = null;
+
         public override void OnAttach()
         {
             CreateFBO();
@@ -26,6 +30,32 @@ namespace Polaris
             OGL.BindTexture(GLEnum.Texture2D, 0);
             OGL.BindFramebuffer(Silk.NET.OpenGL.GLEnum.Framebuffer, (uint)FBOHandle);
             OGL.Viewport(0, 0, Application.ViewportMax, Application.ViewportMax);
+            Grid = Mesh.CreateFromScratch();
+            Grid.Vertices = new float[]
+            {
+                 0.0f, 0.0f,  0.5f,
+                 0.0f, 0.0f, -0.5f,
+                 0.0f, 0.0f,  0.5f,
+            };
+            Grid.UVs = new float[]
+            { 
+                0, 0, 
+                0, 0,
+                0, 0
+            };
+            Grid.Normals = new float[]
+            {
+                0, 1, 0,
+                0, 1, 0,
+                0, 1, 0,
+                0, 1, 0
+            };
+            Grid.Indices = new uint[]
+            {
+                0, 1, 2
+            };
+            Grid.UpdateBuffers();
+            GridMat = new Material(@"builtin/shaders/stdcolor");
         }
 
         public unsafe override void OnUpdate()
@@ -50,6 +80,20 @@ namespace Polaris
             EditorGUI.UpdateEditorCamera();
 #endif
             //+:cnd:noEmit
+            //for (int x = -500; x <= 500; x++)
+            //{
+            //    GridMat.Push();
+            //    GridMat.Bind();
+            //    GL.DrawMesh(Grid, Camera.editor, Matrix4x4.CreateScale(1, 1, 1000) * Matrix4x4.CreateTranslation(x, 0, 0), true);
+            //    GridMat.Pop();
+            //}
+            //for (int z = -500; z <= 500; z++)
+            //{
+            //    GridMat.Push();
+            //    GridMat.Bind();
+            //    GL.DrawMesh(Grid, Camera.editor, Matrix4x4.CreateScale(1, 1, 1000) * Matrix4x4.CreateRotationY(Vim.MathOps.ToRadians(90)) * Matrix4x4.CreateTranslation(0, 0, z), true);
+            //    GridMat.Pop();
+            //}
             foreach (Layer layer in Application.LayerStack)
             {
                 foreach (GameObject go in Scene.LoadedScene.FindAll())
@@ -60,7 +104,7 @@ namespace Polaris
                         {
                             go.Material.Push();
                             go.Material.Bind();
-                            GL.DrawMesh(go.Mesh, Camera.current, go.Transform);
+                            GL.DrawMesh(go.Mesh, Camera.current, go.Transform, EditorGUI.EnableWireframe);
                             go.Material.Pop();
                         }
                     }

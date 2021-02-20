@@ -31,8 +31,30 @@ namespace Polaris
                 }
             }
         }
-        public string ShaderName = "Error/Untitled";
-        public string ShaderPath = "";
+        private string _ShaderName = "Error/Untitled";
+        public string ShaderName
+        {
+            get
+            {
+                return _ShaderName;
+            }
+            private set
+            {
+                _ShaderName = value;
+            }
+        }
+        private string _ShaderPath = "";
+        public string ShaderPath
+        {
+            get
+            {
+                return _ShaderPath;
+            }
+            private set
+            {
+                _ShaderPath = value;
+            }
+        }
         private static Dictionary<string, Texture> TextureCache = new Dictionary<string, Texture>();
 
         private string FilePath
@@ -81,7 +103,7 @@ namespace Polaris
         {
             if (Src == null)
             {
-                ShaderPath = @"Assets\builtin\shaders\std";
+                ShaderPath = @"builtin\shaders\std";
             }
             foreach (string tmp_ln in Src.Split('>'))
             {
@@ -123,12 +145,18 @@ namespace Polaris
                 this.Value = Value;
                 this.Type = Type;
 
-                this.Value = this.Value.Replace("|NO-TEX|", @"Assets\builtin\textures\prototyping\Purple\texture_08.png");
+                this.Value = this.Value.Replace("|NO-TEX|", @"builtin\textures\prototyping\Purple\texture_08.png");
             }
+
+            private static Dictionary<string, Texture> TextureCache = new Dictionary<string, Texture>();
 
             public object Get(bool CreateTexture = false)
             {
-                if (CreateTexture && Type == typeof(Texture)) return new Texture(Value);
+                if (CreateTexture && Type == typeof(Texture))
+                {
+                    if (!TextureCache.ContainsKey(Value)) TextureCache.Add(Value, new Texture(Value));
+                    return TextureCache[Value];
+                }
                 if (Type == typeof(float)) return float.Parse(Value);
                 if (Type == typeof(Vector2)) return new Vector2
                         (float.Parse(Regex.Replace(Value.Split(',')[0], @"\s+", "")),
@@ -176,13 +204,13 @@ namespace Polaris
 
         public void SetProperty(string Name, string value)
         {
-            string src = Src;
+            string src = "";
             foreach (string tmp_ln in Src.Split('>'))
             {
                 string ln = tmp_ln + ">";
+                ln = ln.Replace("\n", "").Replace("\r", "");
                 try
                 {
-                    ln = ln.Replace("\n", "").Replace("\r", "");
                     if (ln.Split('_')[1].Split('<')[0] == Name)
                     {
                         ln = ln.Replace("<" + ln.Split('<')[1].Split('>')[0] + ">", "<" + value + ">");

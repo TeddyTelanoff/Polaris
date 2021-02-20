@@ -109,3 +109,6 @@ C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj
 C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj\Edit\netstandard2.1\Polaris.dll
 C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\obj\Edit\netstandard2.1\Polaris.pdb
 C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\bin\Edit\netstandard2.1\Assets\builtin\shaders\std\shader
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\bin\Edit\netstandard2.1\Assets\builtin\shaders\stdcolor\shader
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\bin\Edit\netstandard2.1\Assets\builtin\shaders\stdcolor\StandardShader.frag
+C:\Users\mtheumann\Documents\GitHub\Polaris\PolarisGame\Tools\Engine\Polaris\bin\Edit\netstandard2.1\Assets\builtin\shaders\stdcolor\StandardShader.vert
